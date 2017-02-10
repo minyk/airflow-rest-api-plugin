@@ -10,7 +10,7 @@ from datetime import datetime
 import airflow
 import logging
 import subprocess
-import urllib2
+import urllib
 import os
 
 """
@@ -624,7 +624,7 @@ class REST_API(BaseView):
         elif " " in dag_id:
             return get_400_error_response(base_response, "dag_id contains spaces and is therefore an illegal argument")
 
-        response = urllib2.urlopen(airflow_webserver_base_url + '/admin/airflow/refresh?dag_id=' + dag_id)
+        response = urllib.request.urlopen(airflow_webserver_base_url + '/admin/airflow/refresh?dag_id=' + dag_id)
         html = response.read()
         return get_final_response(base_response=base_response, output="DAG [{}] is now fresh as a daisy".format(dag_id))
 
